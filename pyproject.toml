@@ -2,14 +2,19 @@
 name = "fido2-hid-bridge"
 version = "0.1.0"
 description = ""
-authors = ["Bryan Jacobs <b@q3q.us>"]
+authors = ["Bryan Jacobs <b@q3q.us>", "Ari Lotter <arilotter@gmail.com>"]
 readme = "README.md"
 packages = [{ include = "fido2_hid_bridge" }]
+repository = "https://github.com/arilotter/fido2-hid-bridge"
 
 [tool.poetry.dependencies]
 python = "^3.11"
 uhid = "^0.0.1"
 fido2 = { extras = ["pcsc"], version = "^1.1.2" }
+click = "^8.1"
+
+[tool.poetry.scripts]
+fido2-hid-bridge = "fido2_hid_bridge.console:main"
 
 [build-system]
 requires = ["poetry-core"]
