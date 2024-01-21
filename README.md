@@ -28,6 +28,13 @@ or otherwise get access to raw HID devices (permissions on `/dev/uhid`):
 sudo -E ./.venv/bin/python bridge.py
 ```
 
+If you use `nix`, you can simply
+
+```shell
+nix develop
+python3 ./bridge.py
+```
+
 ## Implementation Details
 
 This uses the Linux kernel UHID device facility, and the `python-fido2` library.
