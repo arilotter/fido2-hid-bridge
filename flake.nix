@@ -17,7 +17,7 @@
       inherit (poetry2nix.lib.mkPoetry2Nix { inherit pkgs; }) mkPoetryApplication defaultPoetryOverrides;
     in
     {
-      packages = {
+      packages.x86_64-linux = {
         fido2-hid-bridge = mkPoetryApplication {
           projectDir = self;
           overrides = defaultPoetryOverrides.extend
@@ -41,7 +41,7 @@
         cfg = config.services.fido2-hid-bridge;
       in
       {
-        options.services.fido2-hid-bridge- = {
+        options.services.fido2-hid-bridge = {
           enable = lib.mkEnableOption "enable the fido2-hid-bridge service";
         };
 
@@ -53,7 +53,6 @@
             serviceConfig = {
               Type = "simple";
               ExecStart = "${pkgs.poetry}/bin/fido2-hid-bridge";
-              Restart = "on failure";
             };
           };
         };
