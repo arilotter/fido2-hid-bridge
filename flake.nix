@@ -52,7 +52,7 @@
             wantedBy = [ "multi-user.target" ];
             serviceConfig = {
               Type = "simple";
-              ExecStart = "${pkgs.poetry}/bin/fido2-hid-bridge";
+              ExecStart = "${self.packages.${system}.fido2-hid-bridge}/bin/fido2-hid-bridge";
             };
           };
         };
