@@ -13,6 +13,47 @@ you can use NFC authenticators or Smartcards.
 Note that this is a very early-stage application, but it does work with
 Chrome and Firefox.
 
+## NixOS Module
+
+Add this repo as a flake input, and enable the `fido2-hid-bridge` service.
+Now you can use your smart card for 2fa in your browser!
+
+```nix
+{
+  inputs = {
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    fido2-hid-bridge.url = "github:arilotter/fido2-hid-bridge";
+  };
+
+  outputs = { fido2-hid-bridge, ... }: {
+    nixosConfigurations = {
+      "hostname_here" = nixpkgs.lib.nixosSystem {
+        modules = [
+          inputs.fido2-hid-bridge.nixosModule
+          {
+            services = {
+                pcscd.enable = true;
+                fido2-hid-bridge.enable = true;
+            };
+          }
+        ];
+      };
+    };
+  };
+}
+```
+
+If you're using an ACR122U, you might also need to blacklist the NFC kernel modules, and add the ACSCCID plugin for pcscd.
+
+```nix
+    # disable modules that conflict w/ smart card reader.
+    boot.blacklistedKernelModules = [ "nfc" "pn533" "pn533_usb" ];
+    services.pcscd = {
+        enable = true;
+        plugins = [ pkgs.acsccid ];
+    };
+```
+
 ## Running It
 
 You'll need to install dependencies:
