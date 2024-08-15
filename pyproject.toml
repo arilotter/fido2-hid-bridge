@@ -10,7 +10,7 @@ repository = "https://github.com/arilotter/fido2-hid-bridge"
 [tool.poetry.dependencies]
 python = "^3.11"
 uhid = "^0.0.1"
-fido2 = { extras = ["pcsc"], version = "^1.1.2" }
+fido2 = { extras = ["pcsc"], version = "^1.1.3" }
 click = "^8.1"
 
 [tool.poetry.scripts]
